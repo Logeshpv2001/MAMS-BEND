@@ -69,15 +69,16 @@ export const getAssetSummary = async (req, res) => {
       WHERE status = 'expended'
     `);
 
-    const opening = openingRes[0]?.opening_balance || 0;
-    const purchases = purchasesRes[0]?.purchases || 0;
-    const transfersIn = transfersInRes[0]?.transfers_in || 0;
-    const transfersOut = transfersOutRes[0]?.transfers_out || 0;
-    const assigned = assignedRes[0]?.assigned || 0;
-    const expended = expendedRes[0]?.expended || 0;
-
+    const opening = Number(openingRes[0]?.opening_balance) || 0;
+    const purchases = Number(purchasesRes[0]?.purchases) || 0;
+    const transfersIn = Number(transfersInRes[0]?.transfers_in) || 0;
+    const transfersOut = Number(transfersOutRes[0]?.transfers_out) || 0;
+    const assigned = Number(assignedRes[0]?.assigned) || 0;
+    const expended = Number(expendedRes[0]?.expended) || 0;
+    
     const netMovement = purchases + transfersIn - transfersOut;
     const closingBalance = opening + netMovement - assigned - expended;
+    
 
     return res.status(200).json({
       opening_balance: opening,
