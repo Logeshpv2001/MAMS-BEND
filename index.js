@@ -20,6 +20,10 @@ app.use(
 app.use(express.json());
 app.use(morgan("dev"));
 
+app.get("/test-api", (req, res) => {
+  res.status(200).json({ message: "API Working Fine" });
+});
+
 app.use("/", router);
 
 const PORT = process.env.PORT || 5000;
