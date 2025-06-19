@@ -11,7 +11,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5174",
+    origin: "https://military-asset-management-system-wx9k.onrender.com",
     credentials: true,
   })
 );
