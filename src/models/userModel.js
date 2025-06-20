@@ -33,3 +33,9 @@ export const updateUser = async (id, data) => {
   );
   return result.affectedRows;
 };
+
+export const deleteUserById = async (id) => {
+  const [result] = await db.query("DELETE FROM Users WHERE id = ?", [id]);
+  return result.affectedRows > 0;
+};
+

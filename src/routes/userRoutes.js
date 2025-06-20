@@ -3,6 +3,7 @@ import { authenticateUser } from "../middleware/authMiddleware.js";
 import { authorizeRoles } from "../middleware/roleMiddleware.js";
 import {
   createNewUser,
+  deleteUser,
   listUsers,
   updateUserById,
 } from "../controllers/userController.js";
@@ -21,6 +22,13 @@ userRouter.put(
   authenticateUser,
   authorizeRoles("admin"),
   updateUserById
+);
+
+userRouter.delete(
+  "/:id",
+  authenticateUser,
+  authorizeRoles("admin"),
+  deleteUser
 );
 
 export default userRouter;

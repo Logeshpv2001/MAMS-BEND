@@ -3,6 +3,7 @@ import {
   getAllUsers,
   findUserById,
   updateUser,
+  deleteUserById,
 } from "../models/userModel.js";
 import logAction from "../utils/logger.js";
 
@@ -46,5 +47,25 @@ export const updateUserById = async (req, res) => {
     res
       .status(500)
       .json({ message: "Failed to update user", error: err.message });
+  }
+};
+
+export const deleteUser = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const success = await deleteUserById(id);
+
+    if (!success) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    await logAction(req.user.id, "DELETE_USER", `Deleted user ID: ${id}`);
+
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "Failed to delete user", error: err.message });
   }
 };
